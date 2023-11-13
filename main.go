@@ -37,6 +37,7 @@ func handleConnection(conn net.Conn) {
 			fmt.Println("Connection closed")
 			break
 		}
+		//get target for the connection
 		message := string(buffer[:n])
 		target := "some_client_id"
 		if targetChannel, found := connections[target]; found {
@@ -49,6 +50,19 @@ func handleConnection(conn net.Conn) {
 	mutex.Unlock()
 }
 
+func monitorConnections() {
+	for {
+		time.Sleep(5 * time.Second) // Adjust the sleep duration as needed
+
+		fmt.Println("Current connections:")
+		mutex.Lock()
+		for key, value := range connections {
+			fmt.Printf("Key: %s, Value: %v\n", key, value)
+		}
+		mutex.Unlock()
+	}
+}
+
 func main() {
 	listener, err := net.Listen("tcp", ":8080")
 	if err != nil {
@@ -56,6 +70,7 @@ func main() {
 		return
 	}
 	defer listener.Close()
+	go monitorConnections()
 
 	for {
 		conn, err := listener.Accept()
