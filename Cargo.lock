@@ -355,6 +355,9 @@ version = "0.1.0"
 [[package]]
 name = "common"
 version = "0.1.0"
+dependencies = [
+ "serde",
+]
 
 [[package]]
 name = "convert_case"
