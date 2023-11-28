@@ -1,4 +1,5 @@
 use std::collections::VecDeque;
+use std::pin::pin;
 use reqwest::{Error, Response};
 use common::job::Job;
 use crate::config::AgentConfig;
@@ -29,7 +30,8 @@ impl Agent{
         }
     }
     pub async fn ping_home(&mut self) ->Result<(), reqwest::Error>{
-        let ping_result: Response = reqwest::get(format!("{}/{}/ping", self.config.home, self.config.id)).await?;
+        let ping_result = reqwest::get(format!("{}/{}/ping", self.config.home, self.config.id)).await;
+        println!("{:?}", ping_result);
         match ping_result{
             Ok(_) => {
                 Ok(())

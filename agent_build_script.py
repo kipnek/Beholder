@@ -8,7 +8,7 @@ def build_rust_binary(home, id):
 
     # Replace placeholders
     source_code = template.replace("{{ID}}", id)
-    source_code = template.replace("{{HOME}}", home)
+    source_code = source_code.replace("{{HOME}}", home)
 
     # Write to a source file
     with open('./agent/src/agent_config.rs', 'w') as file:
@@ -19,4 +19,4 @@ def build_rust_binary(home, id):
 
 
 # Example usage
-build_rust_binary("127.0.0.1:80", "12345")
+build_rust_binary("http://127.0.0.1:8080", "8080")
