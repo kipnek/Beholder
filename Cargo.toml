@@ -1,3 +1,8 @@
 [workspace]
 
-members = ["agent", "server", "common"]
+members =["common",
+    "crates/listeners/http_listener",
+    "crates/implants/http_implant",
+    "crates/proxies/http_proxy",
+    "templater"
+]
